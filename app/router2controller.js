@@ -3,6 +3,8 @@ const path = require('path')
 const Router = require('koa-router')
 const router = new Router()
 
+router.prefix('/api/v1')
+
 module.exports = (dir = 'controller') => {
   addControllers(router, dir)
   return router.routes()
@@ -33,7 +35,7 @@ function addMapping(router, mapping, dir) {
     const u = url.split(' ')
     const method = u[0].toLowerCase()
     const _url = u[1] || ''
-    const path = '/' + dir.replace(/^index$|\/index\.js$|.js$/, '') + _url
+    const path = '/' + dir.replace(/\/?[^\/]*.js$|.js$/, '') + _url
     try {
       router[method](path, mapping[url])
       console.log(`register URL mapping: *** ${u[0]}: ${path} ***`)

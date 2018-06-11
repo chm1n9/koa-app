@@ -1,5 +1,5 @@
 module.exports = {
-  'GET' : function(ctx, next) {
+  'GET /info' : function(ctx, next) {
     ctx.body = 'user-info'
   }
 }

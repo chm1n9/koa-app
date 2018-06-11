@@ -1,6 +1,8 @@
 module.exports = {
-  'GET' : function(ctx, next) {
+  'GET' : async function(ctx, next) {
     console.log('index')
-    ctx.body = 'Hello World'
+    ctx.response.type = 'application/json'
+    ctx.response.status = 200
+    ctx.body = JSON.stringify({a: "Hello World"})
   }
 }
