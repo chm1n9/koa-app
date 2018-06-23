@@ -4,10 +4,8 @@ const {
 } = mongoose;
 
 const RoomSchema = new Schema({
-  create_date: {
-    type: Date,
-    default: Date.now
-  },
+  createTime: Date,
+  updateTime: Date,
   id: {
     type: String,
     required: true,

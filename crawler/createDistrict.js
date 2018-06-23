@@ -1,5 +1,6 @@
-const db = require('./mongo')
-const DistrictModel = require('./model/district')
+const { connect, close } = require('./mongo')
+connect()
+const district = require('./model/district')
 
 const d = require('./data/district.json')
 /*
@@ -16,14 +17,14 @@ const d = require('./data/district.json')
   let index = 1
   for (let key in d) {
     const id = index++;
-    await createDistrict({
+    await district.create({
       id,
       name: key,
       level: 1,
     })
     const l2 = d[key]
     for (let i = 0, l = l2.length; i < l; i++) {
-      await createDistrict({
+      await district.create({
         id: id * 100 + i + 1,
         name: l2[i],
         level: 2,
@@ -31,20 +32,6 @@ const d = require('./data/district.json')
       })
     }
   }
-})();
-
-function createDistrict(data) {
-  const districtEntity = new DistrictModel(data);
-  return new Promise(function (resolve, reject) {
-    //将district写入到数据库中
-    districtEntity.save(function (error, doc) {
-      if (error) {
-        console.log("error :" + error);
-        reject(error)
-      } else {
-        console.log("success :" + data.name);
-        resolve(doc);
-      }
-    });
-  })
-}
+  
+  close()
+})()
