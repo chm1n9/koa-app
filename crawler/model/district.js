@@ -7,8 +7,8 @@ const {
 } = Schema.Types
 
 const districtSchema = new Schema({
-  create_time: Date,
-  update_time: Date,
+  createTime: Date,
+  updateTime: Date,
   id: {
     type: Number,
     unique: true
@@ -18,7 +18,7 @@ const districtSchema = new Schema({
     type: Number,
     enum: [1, 2]
   },
-  parent_id: {
+  parentId: {
     type: ObjectId,
     ref: 'district'
   }
@@ -26,9 +26,9 @@ const districtSchema = new Schema({
 
 districtSchema.pre('save', function (next) {
   if (this.isNew) {
-    this.create_time = this.update_time = Date.now()
+    this.createTime = this.updateTime = Date.now()
   } else {
-    this.update_time = Date.now()
+    this.updateTime = Date.now()
   }
   next()
 })
@@ -86,7 +86,7 @@ class District {
           console.log('error: ', error);
           reject(error);
         } else {
-          console.log('deleted: ' + JSON.stringify(data).slice(0, 80))
+          console.log('deleted: ' + JSON.stringify(data))
           resolve(data);
         }
       });

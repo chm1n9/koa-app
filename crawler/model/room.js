@@ -16,12 +16,12 @@ const RoomSchema = new Schema({
     enum: ['zr']
   },
   url: String,
-  room_name: String,
-  detail_imgs: [String],
+  roomName: String,
+  detailImgs: [String],
   price: Number,
-  thumb_url: String,
+  thumbUrl: String,
   tags: [String],
-  district: [String],
+  room: [String],
   localtion: {
     lat: Number,
     lng: Number
@@ -89,4 +89,76 @@ const RoomSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('room', RoomSchema);
+RoomSchema.pre('save', function (next) {
+  if (this.isNew) {
+    this.createTime = this.updateTime = Date.now()
+  } else {
+    this.updateTime = Date.now()
+  }
+  next()
+})
+
+
+class Room {
+  constructor() {
+    this.room = mongoose.model("room", roomSchema);
+  }
+  find(dataArr = {}) {
+    const self = this;
+    return new Promise(function (resolve, reject) {
+      self.room.find(dataArr, function (error, docs) {
+        if (error) {
+          console.log('error: ', error);
+          reject(error);
+        } else {
+          resolve(docs);
+        }
+      })
+    })
+  }
+  findOne(dataArr = {}) {
+    const self = this;
+    return new Promise(function (resolve, reject) {
+      self.room.findOne(dataArr, function (error, docs) {
+        if (error) {
+          console.log('error: ', error);
+          reject(error);
+        } else {
+          resolve(docs);
+        }
+      })
+    })
+  }
+  create(dataArr) {
+    const self = this;
+    return new Promise(function (resolve, reject) {
+      const room = new self.room(dataArr);
+      room.save(function (error, data, numberAffected) {
+        if (error) {
+          console.log('error: ', error);
+          reject(error);
+        } else {
+          console.log('created: ' + JSON.stringify(data))
+          resolve(data);
+        }
+      });
+    })
+  }
+  delete(dataArr) {
+    const self = this;
+    return new Promise(function (resolve, reject) {
+      self.room.remove(dataArr, function (error, data) {
+        if (error) {
+          console.log('error: ', error);
+          reject(error);
+        } else {
+          console.log('deleted: ' + JSON.stringify(data))
+          resolve(data);
+        }
+      });
+    })
+  }
+}
+
+const room = new Room()
+module.exports = room
