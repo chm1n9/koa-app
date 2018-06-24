@@ -2,10 +2,13 @@ const mongoose = require('mongoose');
 const {
   Schema
 } = mongoose;
+const {
+  ObjectId
+} = Schema.Types
 
 const districtSchema = new Schema({
-  createTime: Date,
-  updateTime: Date,
+  create_time: Date,
+  update_time: Date,
   id: {
     type: Number,
     unique: true
@@ -15,14 +18,17 @@ const districtSchema = new Schema({
     type: Number,
     enum: [1, 2]
   },
-  parent_id: Number
+  parent_id: {
+    type: ObjectId,
+    ref: 'district'
+  }
 })
 
 districtSchema.pre('save', function (next) {
   if (this.isNew) {
-    this.createTime = this.updateTime = Date.now()
+    this.create_time = this.update_time = Date.now()
   } else {
-    this.updateTime = Date.now()
+    this.update_time = Date.now()
   }
   next()
 })
