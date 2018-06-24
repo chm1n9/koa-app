@@ -26,7 +26,7 @@ const d = require('./data/district.json')
         id,
         name: key,
         level: 1,
-        parent_id: null
+        parent_id: null,
       })
       const l2s = d[key]
       for (let i = 0, l = l2s.length; i < l; i++) {
