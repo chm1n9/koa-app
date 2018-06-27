@@ -22,6 +22,8 @@ const RoomSchema = new Schema({
   thumbUrl: String,
   tags: [String],
   room: [String],
+  district1: Number,
+  district2: Number,
   localtion: {
     lat: Number,
     lng: Number

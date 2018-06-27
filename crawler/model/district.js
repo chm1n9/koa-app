@@ -21,14 +21,18 @@ const districtSchema = new Schema({
   parentId: {
     type: ObjectId,
     ref: 'district'
-  }
+  },
+  children: [{
+    type: ObjectId,
+    ref: 'district'
+  }]
 })
 
 districtSchema.pre('save', function (next) {
   if (this.isNew) {
     this.createTime = this.updateTime = Date.now()
   } else {
-    this.updateTime = Date.now()
+    this.updateTime = null
   }
   next()
 })
@@ -73,6 +77,19 @@ class District {
           reject(error);
         } else {
           console.log('created: ' + JSON.stringify(data))
+          resolve(data);
+        }
+      });
+    })
+  }
+  update(id, update) {
+    const self = this;
+    return new Promise(function (resolve, reject) {
+      self.district.findByIdAndUpdate(id, {$set: {...update, updateTime: Date.now()}}, function (error, data) {
+        if (error) {
+          console.log('error: ', error);
+          reject(error);
+        } else {
           resolve(data);
         }
       });

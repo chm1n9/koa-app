@@ -5,7 +5,7 @@ const {
 connect()
 const district = require('./model/district')
 
-const d = require('./data/district.json')
+const d = require('./data/bk.json')
 
 ;
 (async function run() {
@@ -20,14 +20,19 @@ const d = require('./data/district.json')
         parentId: null,
       })
       const l2s = d[key]
+      const children = []
       for (let i = 0, l = l2s.length; i < l; i++) {
-        await district.create({
+        const l2 = await district.create({
           id: id * 100 + i + 1,
           name: l2s[i],
           level: 2,
           parentId: l1._id
         })
+        children.push(l2._id)
       }
+      await district.update(l1._id, {
+        children
+      })
     }
   } catch (error) {
     console.error(error)
