@@ -44,14 +44,15 @@ class District {
   find(dataArr = {}) {
     const self = this;
     return new Promise(function (resolve, reject) {
-      self.district.find(dataArr, function (error, docs) {
-        if (error) {
-          console.log('error: ', error);
-          reject(error);
-        } else {
-          resolve(docs);
-        }
-      })
+      self.district.find(dataArr)
+        .exec(function (error, docs) {
+          if (error) {
+            console.log('error: ', error);
+            reject(error);
+          } else {
+            resolve(docs);
+          }
+        })
     })
   }
   findOne(dataArr = {}) {
@@ -85,7 +86,11 @@ class District {
   update(id, update) {
     const self = this;
     return new Promise(function (resolve, reject) {
-      self.district.findByIdAndUpdate(id, {$set: {...update, updateTime: Date.now()}}, function (error, data) {
+      self.district.findByIdAndUpdate(id, {
+        $set: { ...update,
+          updateTime: Date.now()
+        }
+      }, function (error, data) {
         if (error) {
           console.log('error: ', error);
           reject(error);

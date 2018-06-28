@@ -10,7 +10,7 @@ connect()
 const district = require('./model/district')
 
 const getDistrictId = (async () => {
-  return await district.find({level: 1})
+  return await district.find({id: 1})
 })();
 
 getDistrictId.then(v=>console.log(v))
