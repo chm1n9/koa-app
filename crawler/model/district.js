@@ -6,7 +6,7 @@ const {
   ObjectId
 } = Schema.Types
 
-const districtSchema = new Schema({
+const DistrictSchema = new Schema({
   createTime: Date,
   updateTime: Date,
   id: {
@@ -28,7 +28,7 @@ const districtSchema = new Schema({
   }]
 })
 
-districtSchema.pre('save', function (next) {
+DistrictSchema.pre('save', function (next) {
   if (this.isNew) {
     this.createTime = this.updateTime = Date.now()
   } else {
@@ -39,12 +39,32 @@ districtSchema.pre('save', function (next) {
 
 class District {
   constructor() {
-    this.district = mongoose.model("district", districtSchema);
+    this.districtModel = mongoose.model("district", DistrictSchema);
   }
   find(dataArr = {}) {
     const self = this;
     return new Promise(function (resolve, reject) {
-      self.district.find(dataArr)
+      self.districtModel.find(dataArr)
+        .exec(function (error, docs) {
+          if (error) {
+            console.log('error: ', error);
+            reject(error);
+          } else {
+            resolve(docs);
+          }
+        })
+    })
+  }
+  getId(l1Name, l2Name) {
+    const self = this;
+    return new Promise(function (resolve, reject) {
+      self.districtModel.findOne({
+          name: l1Name,
+          level: 1
+        })
+        .populate('children')
+        // .where('children')
+        // .elemMatch({name: l2Name})
         .exec(function (error, docs) {
           if (error) {
             console.log('error: ', error);
@@ -58,7 +78,7 @@ class District {
   findOne(dataArr = {}) {
     const self = this;
     return new Promise(function (resolve, reject) {
-      self.district.findOne(dataArr, function (error, docs) {
+      self.districtModel.findOne(dataArr, function (error, docs) {
         if (error) {
           console.log('error: ', error);
           reject(error);
@@ -71,7 +91,7 @@ class District {
   create(dataArr) {
     const self = this;
     return new Promise(function (resolve, reject) {
-      const district = new self.district(dataArr);
+      const district = new self.districtModel(dataArr);
       district.save(function (error, data, numberAffected) {
         if (error) {
           console.log('error: ', error);
@@ -86,7 +106,7 @@ class District {
   update(id, update) {
     const self = this;
     return new Promise(function (resolve, reject) {
-      self.district.findByIdAndUpdate(id, {
+      self.districtModel.findByIdAndUpdate(id, {
         $set: { ...update,
           updateTime: Date.now()
         }
@@ -103,7 +123,7 @@ class District {
   delete(dataArr) {
     const self = this;
     return new Promise(function (resolve, reject) {
-      self.district.remove(dataArr, function (error, data) {
+      self.districtModel.remove(dataArr, function (error, data) {
         if (error) {
           console.log('error: ', error);
           reject(error);

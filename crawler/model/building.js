@@ -6,42 +6,30 @@ const {
 const BuildingSchema = new Schema({
   createTime: Date,
   updateTime: Date,
-  id: {
-    type: String,
-    required: true,
-    unique: true
-  },
+
   name: {
     type: String,
     required: true,
     index: true,
     unique: true
   },
-  district1: Number,
-  district2: Number,
+  district1: String,
+  district2: String,
   localtion: {
     lat: Number,
     lng: Number
   },
   floorTotal: Number,
-  traffic: [{
+  traffics: [{
     line: String,
     station: String,
     distance: Number
   }],
-  steward: {
-    addTimes: Number,
-    headCorn: String,
-    isBadEval: Number,
-    isNewBind: Number,
-    keeperId: String,
-    keeperName: String,
-    keeperPhone: String,
-    keeperPresent: String,
-  }
+  trafficDesc: String,
+  around: String
 });
 
-RoomSchema.pre('save', function (next) {
+BuildingSchema.pre('save', function (next) {
   if (this.isNew) {
     this.createTime = this.updateTime = Date.now()
   } else {
@@ -51,14 +39,14 @@ RoomSchema.pre('save', function (next) {
 })
 
 
-class Room {
+class Building {
   constructor() {
-    this.room = mongoose.model("room", roomSchema);
+    this.building = mongoose.model("building", BuildingSchema);
   }
   find(dataArr = {}) {
     const self = this;
     return new Promise(function (resolve, reject) {
-      self.room.find(dataArr, function (error, docs) {
+      self.building.find(dataArr, function (error, docs) {
         if (error) {
           console.log('error: ', error);
           reject(error);
@@ -71,7 +59,7 @@ class Room {
   findOne(dataArr = {}) {
     const self = this;
     return new Promise(function (resolve, reject) {
-      self.room.findOne(dataArr, function (error, docs) {
+      self.building.findOne(dataArr, function (error, docs) {
         if (error) {
           console.log('error: ', error);
           reject(error);
@@ -84,8 +72,8 @@ class Room {
   create(dataArr) {
     const self = this;
     return new Promise(function (resolve, reject) {
-      const room = new self.room(dataArr);
-      room.save(function (error, data, numberAffected) {
+      const building = new self.building(dataArr);
+      building.save(function (error, data, numberAffected) {
         if (error) {
           console.log('error: ', error);
           reject(error);
@@ -99,7 +87,7 @@ class Room {
   delete(dataArr) {
     const self = this;
     return new Promise(function (resolve, reject) {
-      self.room.remove(dataArr, function (error, data) {
+      self.building.remove(dataArr, function (error, data) {
         if (error) {
           console.log('error: ', error);
           reject(error);
@@ -112,5 +100,5 @@ class Room {
   }
 }
 
-const room = new Room()
-module.exports = room
+const building = new Building()
+module.exports = building
