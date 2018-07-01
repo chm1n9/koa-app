@@ -127,6 +127,7 @@ function superagentGet(url, callback) {
       .get(url)
       .end((err, res) => {
         if (err) {
+          console.log('errorUrl: ' + url)
           console.log(err)
           return reject({})
         }
