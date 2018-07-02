@@ -23,9 +23,10 @@ getZiru()
 
 async function getZiru() {
   console.time('get ziru')
-  for (let i = 1, l = 3; i < l; i++) {
+  for (let i = 1, l = 2; i < l; i++) {
     await getPage(i)
   }
+  close()
   console.timeEnd('get ziru')
 }
 
@@ -91,6 +92,7 @@ function createBuilding(b) {
     } else {
       building.create(b).then(v => {
         b.id = v._id
+        buildingCache[b.name] = b
         resolve(b)
       })
     }

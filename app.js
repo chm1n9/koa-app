@@ -13,8 +13,4 @@ app.use(router2controller());
 
 
 
-
-// app.callback = () => {
-//   console.log(`Server started and listen on port ${config.port}`)
-// }
 app.listen(config.port)

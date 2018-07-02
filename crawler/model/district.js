@@ -97,7 +97,7 @@ class District {
           console.log('error: ', error);
           reject(error);
         } else {
-          console.log('created: ' + JSON.stringify(data))
+          console.log('district created: ' + JSON.stringify(data))
           resolve(data);
         }
       });

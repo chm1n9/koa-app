@@ -78,7 +78,7 @@ class Building {
           console.log('error: ', error);
           reject(error);
         } else {
-          console.log('created: ' + JSON.stringify(data))
+          console.log('building created: ' + data.name)
           resolve(data);
         }
       });

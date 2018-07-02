@@ -151,7 +151,7 @@ class Room {
           console.log('error: ', error);
           reject(error);
         } else {
-          console.log('created: ' + data.roomName)
+          console.log('room created: ' + data.roomName)
           resolve(data);
         }
       });
