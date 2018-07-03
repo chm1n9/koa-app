@@ -4,6 +4,7 @@
     "koa": "^2.5.1",
     "koa-router": "^7.4.0",
     "koa-static2": "^0.1.8",
+    "log4js": "^2.10.0",
     "mongoose": "^5.1.6"
   },
   "devDependencies": {

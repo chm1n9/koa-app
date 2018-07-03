@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const {
   Schema
 } = mongoose;
+const Log = require('../logs/index.js')
 
 const BuildingSchema = new Schema({
   createTime: Date,
@@ -48,7 +49,7 @@ class Building {
     return new Promise(function (resolve, reject) {
       self.building.find(dataArr, function (error, docs) {
         if (error) {
-          console.log('error: ', error);
+          Log.error('[ db ] error: ' + error);
           reject(error);
         } else {
           resolve(docs);
@@ -61,7 +62,7 @@ class Building {
     return new Promise(function (resolve, reject) {
       self.building.findOne(dataArr, function (error, docs) {
         if (error) {
-          console.log('error: ', error);
+          Log.error('[ db ] error: ' + error);
           reject(error);
         } else {
           resolve(docs);
@@ -75,10 +76,10 @@ class Building {
       const building = new self.building(dataArr);
       building.save(function (error, data, numberAffected) {
         if (error) {
-          console.log('error: ', error);
+          Log.error('[ db ] building create error: ' + error);
           reject(error);
         } else {
-          console.log('building created: ' + data.name)
+          Log.info('[ db ] building created: ' + data.name)
           resolve(data);
         }
       });
@@ -89,10 +90,10 @@ class Building {
     return new Promise(function (resolve, reject) {
       self.building.remove(dataArr, function (error, data) {
         if (error) {
-          console.log('error: ', error);
+          Log.error('[ db ] error: ' + error);
           reject(error);
         } else {
-          console.log('deleted: ' + JSON.stringify(data))
+          Log.info('[ db ] deleted: ' + JSON.stringify(data))
           resolve(data);
         }
       });

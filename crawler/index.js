@@ -6,7 +6,7 @@ const {
 } = require('./mongo');
 
 connect()
-const parseHtml  = require('./parseHtml.js')
+const parseHtml = require('./parseHtml.js')
 const building = require('./model/building')
 const room = require('./model/room')
 const buildingCache = {}
@@ -76,10 +76,17 @@ function getRoomInfo(url, thumbUrl) {
       ...steward
     }
 
-    const buildingDate = await createBuilding(info.building)
-    setTimeout(function () {
+
+    try {
+      const buildingDate = await createBuilding(info.building)
       info.building = buildingDate
+    } catch (error) { }
+
+    setTimeout(function () {
       room.create(info)
+        .catch(function (e) {
+          console.error('room create error: ' + e)
+        })
       resolve(info)
     }, 1000)
   })
@@ -90,11 +97,16 @@ function createBuilding(b) {
     if (buildingCache[b.name]) {
       resolve(buildingCache[b.name])
     } else {
-      building.create(b).then(v => {
-        b.id = v._id
-        buildingCache[b.name] = b
-        resolve(b)
-      })
+      building.create(b)
+        .then(v => {
+          b.id = v._id
+          buildingCache[b.name] = b
+          resolve(b)
+        })
+        .catch(function (e) {
+          console.error('building create error: ' + e)
+          reject(e)
+        })
     }
   })
 }
@@ -129,9 +141,9 @@ function superagentGet(url, callback) {
       .get(url)
       .end((err, res) => {
         if (err) {
-          console.log('errorUrl: ' + url)
-          console.log(err)
-          return reject({})
+          console.error('superagent get error : ' + err)
+          console.log('ERROR URL: ' + url + '.')
+          return reject({ body: {} })
         }
         callback(resolve, res)
       })

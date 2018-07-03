@@ -5,6 +5,7 @@ const {
 const {
   ObjectId
 } = Schema.Types
+const Log = require('/logs/index.js')
 
 const RoomSchema = new Schema({
   createTime: Date,
@@ -121,7 +122,7 @@ class Room {
     return new Promise(function (resolve, reject) {
       self.roomModel.find(dataArr, function (error, docs) {
         if (error) {
-          console.log('error: ', error);
+          Log.error('[ db ] error: ' + error);
           reject(error);
         } else {
           resolve(docs);
@@ -134,7 +135,7 @@ class Room {
     return new Promise(function (resolve, reject) {
       self.roomModel.findOne(dataArr, function (error, docs) {
         if (error) {
-          console.log('error: ', error);
+          Log.error('[ db ] error: ' + error);
           reject(error);
         } else {
           resolve(docs);
@@ -148,10 +149,10 @@ class Room {
       const room = new self.roomModel(dataArr);
       room.save(function (error, data) {
         if (error) {
-          console.log('error: ', error);
+          Log.error('[ db ] room create error: ' + error)
           reject(error);
         } else {
-          console.log('room created: ' + data.roomName)
+          Log.info('[ db ] room created: ' + data.roomName)
           resolve(data);
         }
       });
@@ -162,10 +163,10 @@ class Room {
     return new Promise(function (resolve, reject) {
       self.roomModel.remove(dataArr, function (error, data) {
         if (error) {
-          console.log('error: ', error);
+          Log.error('[ db ] error: ' + error);
           reject(error);
         } else {
-          console.log('deleted: ' + JSON.stringify(data))
+          Log.info('[ db ] deleted: ' + JSON.stringify(data))
           resolve(data);
         }
       });
