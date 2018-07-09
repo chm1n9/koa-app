@@ -3,7 +3,7 @@ const superagent = require('superagent'),
 const { open, close } = require('../utils/mongo');
 open()
 
-const parseHtml = require('./parseHtml.js')
+const parseHtml = require('./parseHtml')
 const building = require('../model/building')
 const room = require('../model/room')
 const buildingCache = {}

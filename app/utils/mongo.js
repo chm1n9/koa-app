@@ -9,16 +9,16 @@ const dbHost = 'mongodb://127.0.0.1:27017/',
 //   }
 // }
 
-exports.open = function() {
-  mongoose.connect(dbHost + dbName)
+export function open() {
+  mongoose.connect(dbHost + dbName, { useNewUrlParser: true })
 
   const db = mongoose.connection
   db.on('error', console.error.bind(console, 'connection error:'))
   db.on('disconnected', console.error.bind(console, 'disconnected!'))
-  db.once('open', function (callback) {
+  db.once('open', function(callback) {
     console.log('connet success!')
   })
 }
-exports.close = function() {
+export function close() {
   mongoose.disconnect()
 }

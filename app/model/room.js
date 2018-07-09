@@ -113,66 +113,66 @@ RoomSchema.pre('save', function (next) {
 })
 
 
-class Room {
-  constructor() {
-    this.roomModel = mongoose.model("room", RoomSchema);
-  }
-  find(dataArr = {}) {
-    const self = this;
-    return new Promise(function (resolve, reject) {
-      self.roomModel.find(dataArr, function (error, docs) {
-        if (error) {
-          Log.error('[ db ] error: ' + error);
-          reject(error);
-        } else {
-          resolve(docs);
-        }
-      })
-    })
-  }
-  findOne(dataArr = {}) {
-    const self = this;
-    return new Promise(function (resolve, reject) {
-      self.roomModel.findOne(dataArr, function (error, docs) {
-        if (error) {
-          Log.error('[ db ] error: ' + error);
-          reject(error);
-        } else {
-          resolve(docs);
-        }
-      })
-    })
-  }
-  create(dataArr) {
-    const self = this;
-    return new Promise(function (resolve, reject) {
-      const room = new self.roomModel(dataArr);
-      room.save(function (error, data) {
-        if (error) {
-          Log.error('[ db ] room create error: ' + error)
-          reject(error);
-        } else {
-          Log.info('[ db ] room created: ' + data.roomName)
-          resolve(data);
-        }
-      });
-    })
-  }
-  delete(dataArr) {
-    const self = this;
-    return new Promise(function (resolve, reject) {
-      self.roomModel.remove(dataArr, function (error, data) {
-        if (error) {
-          Log.error('[ db ] error: ' + error);
-          reject(error);
-        } else {
-          Log.info('[ db ] deleted: ' + JSON.stringify(data))
-          resolve(data);
-        }
-      });
-    })
-  }
-}
+// class Room {
+//   constructor() {
+//     this.roomModel = mongoose.model("room", RoomSchema);
+//   }
+//   find(...dataArr) {
+//     const self = this;
+//     return new Promise(function (resolve, reject) {
+//       self.roomModel.find(...dataArr, function (error, docs) {
+//         if (error) {
+//           Log.error('[ db ] error: ' + error);
+//           reject(error);
+//         } else {
+//           resolve(docs);
+//         }
+//       })
+//     })
+//   }
+//   findOne(dataArr = {}) {
+//     const self = this;
+//     return new Promise(function (resolve, reject) {
+//       self.roomModel.findOne(dataArr, function (error, docs) {
+//         if (error) {
+//           Log.error('[ db ] error: ' + error);
+//           reject(error);
+//         } else {
+//           resolve(docs);
+//         }
+//       })
+//     })
+//   }
+//   create(dataArr) {
+//     const self = this;
+//     return new Promise(function (resolve, reject) {
+//       const room = new self.roomModel(dataArr);
+//       room.save(function (error, data) {
+//         if (error) {
+//           Log.error('[ db ] room create error: ' + error)
+//           reject(error);
+//         } else {
+//           Log.info('[ db ] room created: ' + data.roomName)
+//           resolve(data);
+//         }
+//       });
+//     })
+//   }
+//   delete(dataArr) {
+//     const self = this;
+//     return new Promise(function (resolve, reject) {
+//       self.roomModel.remove(dataArr, function (error, data) {
+//         if (error) {
+//           Log.error('[ db ] error: ' + error);
+//           reject(error);
+//         } else {
+//           Log.info('[ db ] deleted: ' + JSON.stringify(data))
+//           resolve(data);
+//         }
+//       });
+//     })
+//   }
+// }
 
-const room = new Room()
-module.exports = room
+// const room = new Room()
+module.exports = mongoose.model("room", RoomSchema)

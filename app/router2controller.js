@@ -2,11 +2,24 @@ const fs = require('fs')
 const path = require('path')
 const Router = require('koa-router')
 const router = new Router()
+const { graphqlKoa, graphiqlKoa } = require('graphql-server-koa')
+import schema from './graphql/schema'
+
 
 router.prefix('/api/v1')
 
 module.exports = (dir = 'controller') => {
   addControllers(router, dir)
+  router
+    .get('/graphql', async (ctx, next) => {
+      await graphqlKoa({ schema: schema })(ctx, next)
+    })
+    .post('/graphql', async (ctx, next) => {
+      await graphqlKoa({ schema: schema })(ctx, next) // 使用schema
+    })
+    .get('/graphiql', async (ctx, next) => {
+      await graphiqlKoa({ endpointURL: '/api/v1/graphql' })(ctx, next)
+    })
   return router.routes()
 }
 
@@ -24,7 +37,7 @@ function addControllers(router, dir) {
   }
   console.log(dirs)
   dirs.forEach(f => {
-    console.log(`process controller: ${f}...`)
+    // console.log(`process controller: ${f}...`)
     let mapping = require(path.join(__dirname, dir, f))
     addMapping(router, mapping, f)
   })
