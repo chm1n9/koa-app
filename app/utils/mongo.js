@@ -9,7 +9,7 @@ const dbHost = 'mongodb://127.0.0.1:27017/',
 //   }
 // }
 
-exports.connect = function() {
+exports.open = function() {
   mongoose.connect(dbHost + dbName)
 
   const db = mongoose.connection

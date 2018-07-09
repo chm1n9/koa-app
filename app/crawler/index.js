@@ -1,11 +1,8 @@
 const superagent = require('superagent'),
   cheerio = require('cheerio')
-const {
-  connect,
-  close
-} = require('./mongo');
+const { open, close } = require('../utils/mongo');
+open()
 
-connect()
 const parseHtml = require('./parseHtml.js')
 const building = require('../model/building')
 const room = require('../model/room')
@@ -32,7 +29,7 @@ async function getZiru() {
 
 
 function getPage(pageNum) {
-  return superagentGet(root_url + pageNum, async function (resolve, res) {
+  return superagentGet(root_url + pageNum, async function(resolve, res) {
 
     const $ = cheerio.load(res.text)
     $roomList = $('#houseList li')
@@ -49,7 +46,7 @@ function getPage(pageNum) {
 }
 
 function getRoomInfo(url, thumbUrl) {
-  return superagentGet(url, async function (resolve, res) {
+  return superagentGet(url, async function(resolve, res) {
     const id = url.match(/\d*(?=\.html$)/)[0]
     // $('#resblock_id').val()+'&room_id='+$('#room_id').val()+'&house_id='+$('#house_id').val()+'&ly_name='+$('#ly_name').val()+'&ly_phone='+$('#ly_phone').val()
     const $ = cheerio.load(res.text)
@@ -82,9 +79,9 @@ function getRoomInfo(url, thumbUrl) {
       info.building = buildingDate
     } catch (error) { }
 
-    setTimeout(function () {
+    setTimeout(function() {
       room.create(info)
-        .catch(function (e) {
+        .catch(function(e) {
           console.error('room create error: ' + e)
         })
       resolve(info)
@@ -93,7 +90,7 @@ function getRoomInfo(url, thumbUrl) {
 }
 
 function createBuilding(b) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     if (buildingCache[b.name]) {
       resolve(buildingCache[b.name])
     } else {
@@ -103,7 +100,7 @@ function createBuilding(b) {
           buildingCache[b.name] = b
           resolve(b)
         })
-        .catch(function (e) {
+        .catch(function(e) {
           console.error('building create error: ' + e)
           reject(e)
         })
@@ -119,7 +116,7 @@ function stringify(params) {
 
 function getRoomSteward(params) {
   // http://wh.ziroom.com/detail/steward?resblock_id=3711062640768&room_id=60931451&house_id=60149831&ly_name=&ly_phone=
-  return superagentGet(`http://wh.ziroom.com/detail/steward?${stringify(params)}`, function (resolve, res) {
+  return superagentGet(`http://wh.ziroom.com/detail/steward?${stringify(params)}`, function(resolve, res) {
     resolve({
       steward: res.body.data || {}
     })
@@ -128,7 +125,7 @@ function getRoomSteward(params) {
 
 function getRoomConfig(params) {
   // http://wh.ziroom.com/detail/config?house_id=60149831&id=60931451
-  return superagentGet(`http://wh.ziroom.com/detail/config?${stringify(params)}`, function (resolve, res) {
+  return superagentGet(`http://wh.ziroom.com/detail/config?${stringify(params)}`, function(resolve, res) {
     resolve({
       config: res.body.data || {}
     })
@@ -136,7 +133,7 @@ function getRoomConfig(params) {
 }
 
 function superagentGet(url, callback) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     superagent
       .get(url)
       .end((err, res) => {

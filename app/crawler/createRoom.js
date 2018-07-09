@@ -1,4 +1,4 @@
-const db = require('./mongo')
+const db = require('../utils/mongo')
 const RoomModel = require('./model/room')
 
 var RoomEntity = new RoomModel({

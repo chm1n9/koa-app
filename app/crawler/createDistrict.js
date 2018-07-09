@@ -1,13 +1,10 @@
-const {
-  connect,
-  close
-} = require('./mongo')
-connect()
+const { open, close } = require('../utils/mongo')
+open()
 const district = require('./model/district')
 
 const d = require('../data/bk.json')
 
-;
+  ;
 (async function run() {
   let index = 1
   try {

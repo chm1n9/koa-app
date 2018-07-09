@@ -1,9 +1,11 @@
 const rooms = require('./../../service/rooms')
 
 
-
 module.exports = {
-  'GET' : function(ctx, next) {
-    ctx.body = 'room-list'
+  'GET' : async function(ctx, next) {
+    const result = await rooms.find()
+    ctx.response.type = 'application/json'
+    ctx.response.status = 200
+    ctx.body = JSON.stringify(result)
   }
 }
