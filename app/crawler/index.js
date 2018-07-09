@@ -7,8 +7,8 @@ const {
 
 connect()
 const parseHtml = require('./parseHtml.js')
-const building = require('./model/building')
-const room = require('./model/room')
+const building = require('../model/building')
+const room = require('../model/room')
 const buildingCache = {}
 
 
@@ -17,7 +17,7 @@ const buildingCache = {}
 const root_url = 'http://wh.ziroom.com/z/nl/z3.html?p='
 let count = 0
 
-getZiru()
+module.exports = getZiru
 
 // getRoomInfo('http://wh.ziroom.com/z/vr/60931451.html', 'no')
 
@@ -40,7 +40,7 @@ function getPage(pageNum) {
     for (let i = 0, l = $roomList.length; i < l; i++) {
       const $room = $($roomList[i])
       const url = 'http:' + $room.find('.img.pr>a').attr('href')
-      const thumbUrl = $room.find('.img.pr>a>img').attr('src').slice(2)
+      const thumbUrl = $room.find('.img.pr>a>img').attr('_src')
       await getRoomInfo(url, thumbUrl)
       count++
     }

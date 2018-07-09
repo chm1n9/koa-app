@@ -5,7 +5,7 @@ const {
 connect()
 const district = require('./model/district')
 
-const d = require('./data/bk.json')
+const d = require('../data/bk.json')
 
 ;
 (async function run() {

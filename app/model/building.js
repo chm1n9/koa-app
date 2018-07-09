@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const {
   Schema
 } = mongoose;
-const Log = require('../logs/index.js')
+const Log = require('../../logs/index.js')
 
 const BuildingSchema = new Schema({
   createTime: Date,

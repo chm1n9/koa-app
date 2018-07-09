@@ -5,7 +5,7 @@ const {
 const {
   ObjectId
 } = Schema.Types
-const Log = require('/logs/index.js')
+const Log = require('../../logs/index.js')
 
 const RoomSchema = new Schema({
   createTime: Date,

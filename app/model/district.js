@@ -5,7 +5,7 @@ const {
 const {
   ObjectId
 } = Schema.Types
-const Log = require('/logs/index.js')
+const Log = require('../../logs/index.js')
 
 const DistrictSchema = new Schema({
   createTime: Date,
