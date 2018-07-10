@@ -1,4 +1,11 @@
 type Query {
   room(id: String!): Room
-  rooms(name: String, limit: Int, offset: Int): [Room]
+  rooms(
+    name: String,
+    minPrice: Int,
+    maxPrice:Int,
+
+    limit: Int,
+    offset: Int
+  ): [Room]
 }

@@ -3,7 +3,7 @@ import { makeExecutableSchema } from 'graphql-tools'
 import resolvers from './resolvers/room_resolver'
 
 const typeDefs = [
-  // requireGraphQLFile('./schemas/enum'),
+  requireGraphQLFile('./schemas/pageInfo'),
   requireGraphQLFile('./schemas/building'),
   requireGraphQLFile('./schemas/room'),
   requireGraphQLFile('./schemas/Query')
