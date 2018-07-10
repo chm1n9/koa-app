@@ -3,7 +3,7 @@ const path = require('path')
 const Router = require('koa-router')
 const router = new Router()
 const { graphqlKoa, graphiqlKoa } = require('graphql-server-koa')
-import schema from './graphql/schema'
+import schema from './graphql/new_schema'
 
 
 router.prefix('/api/v1')
@@ -12,10 +12,10 @@ module.exports = (dir = 'controller') => {
   addControllers(router, dir)
   router
     .get('/graphql', async (ctx, next) => {
-      await graphqlKoa({ schema: schema })(ctx, next)
+      await graphqlKoa({ schema })(ctx, next)
     })
     .post('/graphql', async (ctx, next) => {
-      await graphqlKoa({ schema: schema })(ctx, next) // 使用schema
+      await graphqlKoa({ schema })(ctx, next) // 使用schema
     })
     .get('/graphiql', async (ctx, next) => {
       await graphiqlKoa({ endpointURL: '/api/v1/graphql' })(ctx, next)
