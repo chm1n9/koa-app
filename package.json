@@ -9,7 +9,8 @@
     "koa-router": "^7.4.0",
     "koa-static2": "^0.1.8",
     "log4js": "^2.10.0",
-    "mongoose": "^5.2.2"
+    "mongoose": "^5.2.2",
+    "require-graphql-file": "^1.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

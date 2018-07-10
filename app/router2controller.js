@@ -3,7 +3,7 @@ const path = require('path')
 const Router = require('koa-router')
 const router = new Router()
 const { graphqlKoa, graphiqlKoa } = require('graphql-server-koa')
-import schema from './graphql/new_schema'
+import schema from './graphql/index'
 
 
 router.prefix('/api/v1')

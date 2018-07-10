@@ -498,6 +498,10 @@ bytes@3.0.0:
   version "3.0.0"
   resolved "http://registry.npm.taobao.org/bytes/download/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
 
+caller@^1.0.1:
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/caller/download/caller-1.0.1.tgz#b851860f70e195db3d277395aa1a7e23ea30ecf5"
+
 caseless@~0.11.0:
   version "0.11.0"
   resolved "http://registry.npm.taobao.org/caseless/download/caseless-0.11.0.tgz#715b96ea9841593cc33067923f5ec60ebda4f7d7"
@@ -1804,6 +1808,12 @@ requestretry@^1.2.2:
     lodash "^4.15.0"
     request "^2.74.0"
     when "^3.7.7"
+
+require-graphql-file@^1.0.1:
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/require-graphql-file/download/require-graphql-file-1.0.1.tgz#7242ee37b85777b915f0aa8943c995cff7726cfa"
+  dependencies:
+    caller "^1.0.1"
 
 require_optional@^1.0.1:
   version "1.0.1"

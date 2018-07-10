@@ -23,21 +23,6 @@ const resolver = {
   Query: {
     rooms: fetchRooms,
     room: fetchRoomById,
-  },
-  Rooms: {
-    count: function(root, params, options) {
-      return root.count
-    },
-    list: (root, params, options) => {
-      console.log(Object.prototype.toString.call(root.list))
-      return root
-      const l = limit || 10
-      return root
-        // .skip(l * page)
-        .limit(limit)
-        .sort({ 'price': -1 })
-        .exec()
-    },
   }
 }
 export default resolver
