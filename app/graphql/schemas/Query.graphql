@@ -7,5 +7,5 @@ type Query {
 
     limit: Int,
     offset: Int
-  ): [Room]
+  ): Rooms
 }

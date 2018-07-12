@@ -1,7 +1,5 @@
-const mongoose = require('mongoose');
-const {
-  Schema
-} = mongoose;
+const mongoose = require('mongoose')
+const { Schema } = mongoose
 const Log = require('../../logs/index.js')
 
 const BuildingSchema = new Schema({
@@ -30,7 +28,7 @@ const BuildingSchema = new Schema({
   around: String
 });
 
-BuildingSchema.pre('save', function (next) {
+BuildingSchema.pre('save', function(next) {
   if (this.isNew) {
     this.createTime = this.updateTime = Date.now()
   } else {
@@ -46,8 +44,8 @@ class Building {
   }
   find(dataArr = {}) {
     const self = this;
-    return new Promise(function (resolve, reject) {
-      self.building.find(dataArr, function (error, docs) {
+    return new Promise(function(resolve, reject) {
+      self.building.find(dataArr, function(error, docs) {
         if (error) {
           Log.error('[ db ] error: ' + error);
           reject(error);
@@ -59,8 +57,8 @@ class Building {
   }
   findOne(dataArr = {}) {
     const self = this;
-    return new Promise(function (resolve, reject) {
-      self.building.findOne(dataArr, function (error, docs) {
+    return new Promise(function(resolve, reject) {
+      self.building.findOne(dataArr, function(error, docs) {
         if (error) {
           Log.error('[ db ] error: ' + error);
           reject(error);
@@ -72,9 +70,9 @@ class Building {
   }
   create(dataArr) {
     const self = this;
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       const building = new self.building(dataArr);
-      building.save(function (error, data, numberAffected) {
+      building.save(function(error, data, numberAffected) {
         if (error) {
           Log.error('[ db ] building create error: ' + error);
           reject(error);
@@ -87,8 +85,8 @@ class Building {
   }
   delete(dataArr) {
     const self = this;
-    return new Promise(function (resolve, reject) {
-      self.building.remove(dataArr, function (error, data) {
+    return new Promise(function(resolve, reject) {
+      self.building.remove(dataArr, function(error, data) {
         if (error) {
           Log.error('[ db ] error: ' + error);
           reject(error);

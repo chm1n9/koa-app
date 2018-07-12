@@ -1,10 +1,6 @@
-const mongoose = require('mongoose');
-const {
-  Schema
-} = mongoose;
-const {
-  ObjectId
-} = Schema.Types
+const mongoose = require('mongoose')
+const { Schema } = mongoose
+const { ObjectId } = Schema.Types
 const Log = require('../../logs/index.js')
 
 const DistrictSchema = new Schema({
@@ -29,7 +25,7 @@ const DistrictSchema = new Schema({
   }]
 })
 
-DistrictSchema.pre('save', function (next) {
+DistrictSchema.pre('save', function(next) {
   if (this.isNew) {
     this.createTime = this.updateTime = Date.now()
   } else {
@@ -44,9 +40,9 @@ class District {
   }
   find(dataArr = {}) {
     const self = this;
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       self.districtModel.find(dataArr)
-        .exec(function (error, docs) {
+        .exec(function(error, docs) {
           if (error) {
             Log.error('[ db ] error: ' + error);
             reject(error);
@@ -58,7 +54,7 @@ class District {
   }
   getId(l1Name, l2Name) {
     const self = this;
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       self.districtModel.findOne({
         name: l1Name,
         level: 1
@@ -66,7 +62,7 @@ class District {
         .populate('children')
         // .where('children')
         // .elemMatch({name: l2Name})
-        .exec(function (error, docs) {
+        .exec(function(error, docs) {
           if (error) {
             Log.error('[ db ] error: ' + error);
             reject(error);
@@ -78,8 +74,8 @@ class District {
   }
   findOne(dataArr = {}) {
     const self = this;
-    return new Promise(function (resolve, reject) {
-      self.districtModel.findOne(dataArr, function (error, docs) {
+    return new Promise(function(resolve, reject) {
+      self.districtModel.findOne(dataArr, function(error, docs) {
         if (error) {
           Log.error('[ db ] error: ' + error);
           reject(error);
@@ -91,9 +87,9 @@ class District {
   }
   create(dataArr) {
     const self = this;
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       const district = new self.districtModel(dataArr);
-      district.save(function (error, data, numberAffected) {
+      district.save(function(error, data, numberAffected) {
         if (error) {
           Log.error('[ db ] error: ' + error);
           reject(error);
@@ -106,13 +102,13 @@ class District {
   }
   update(id, update) {
     const self = this;
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       self.districtModel.findByIdAndUpdate(id, {
         $set: {
           ...update,
           updateTime: Date.now()
         }
-      }, function (error, data) {
+      }, function(error, data) {
         if (error) {
           Log.error('[ db ] error: ' + error);
           reject(error);
@@ -124,8 +120,8 @@ class District {
   }
   delete(dataArr) {
     const self = this;
-    return new Promise(function (resolve, reject) {
-      self.districtModel.remove(dataArr, function (error, data) {
+    return new Promise(function(resolve, reject) {
+      self.districtModel.remove(dataArr, function(error, data) {
         if (error) {
           Log.error('[ db ] error: ' + error);
           reject(error);

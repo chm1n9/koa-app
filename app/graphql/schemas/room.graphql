@@ -42,3 +42,8 @@ type Room {
   config: Config
   steward: Steward
 }
+
+type Rooms {
+  list: [Room]
+  count: Int
+}

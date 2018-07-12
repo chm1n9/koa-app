@@ -15,11 +15,12 @@ module.exports = (dir = 'controller') => {
       await graphqlKoa({ schema })(ctx, next)
     })
     .post('/graphql', async (ctx, next) => {
-      await graphqlKoa({ schema })(ctx, next) // 使用schema
+      await graphqlKoa({ schema })(ctx, next)
     })
     .get('/graphiql', async (ctx, next) => {
       await graphiqlKoa({ endpointURL: '/api/v1/graphql' })(ctx, next)
     })
+
   return router.routes()
 }
 

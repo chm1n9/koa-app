@@ -1,10 +1,6 @@
-const mongoose = require('mongoose');
-const {
-  Schema
-} = mongoose
-const {
-  ObjectId
-} = Schema.Types
+const mongoose = require('mongoose')
+const { Schema } = mongoose
+const { ObjectId } = Schema.Types
 const Log = require('../../logs/index.js')
 
 const RoomSchema = new Schema({
@@ -103,7 +99,7 @@ const RoomSchema = new Schema({
   }
 });
 
-RoomSchema.pre('save', function (next) {
+RoomSchema.pre('save', function(next) {
   if (this.isNew) {
     this.createTime = this.updateTime = Date.now()
   } else {
