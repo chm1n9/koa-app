@@ -32,7 +32,7 @@ function getPage(pageNum) {
   return superagentGet(root_url + pageNum, async function(resolve, res) {
 
     const $ = cheerio.load(res.text)
-    $roomList = $('#houseList li')
+    const $roomList = $('#houseList li')
 
     for (let i = 0, l = $roomList.length; i < l; i++) {
       const $room = $($roomList[i])

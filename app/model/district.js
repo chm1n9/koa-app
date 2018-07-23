@@ -44,7 +44,7 @@ class District {
       self.districtModel.find(dataArr)
         .exec(function(error, docs) {
           if (error) {
-            Log.error('[ db ] error: ' + error);
+            console.error('[ db ] error: ' + error);
             reject(error);
           } else {
             resolve(docs);
@@ -64,7 +64,7 @@ class District {
         // .elemMatch({name: l2Name})
         .exec(function(error, docs) {
           if (error) {
-            Log.error('[ db ] error: ' + error);
+            console.error('[ db ] error: ' + error);
             reject(error);
           } else {
             resolve(docs);
@@ -77,7 +77,7 @@ class District {
     return new Promise(function(resolve, reject) {
       self.districtModel.findOne(dataArr, function(error, docs) {
         if (error) {
-          Log.error('[ db ] error: ' + error);
+          console.error('[ db ] error: ' + error);
           reject(error);
         } else {
           resolve(docs);
@@ -91,10 +91,10 @@ class District {
       const district = new self.districtModel(dataArr);
       district.save(function(error, data, numberAffected) {
         if (error) {
-          Log.error('[ db ] error: ' + error);
+          console.error('[ db ] error: ' + error);
           reject(error);
         } else {
-          Log.info('[ db ] district created: ' + JSON.stringify(data))
+          console.log('[ db ] district created: ' + JSON.stringify(data))
           resolve(data);
         }
       });
@@ -110,7 +110,7 @@ class District {
         }
       }, function(error, data) {
         if (error) {
-          Log.error('[ db ] error: ' + error);
+          console.error('[ db ] error: ' + error);
           reject(error);
         } else {
           resolve(data);
@@ -123,10 +123,10 @@ class District {
     return new Promise(function(resolve, reject) {
       self.districtModel.remove(dataArr, function(error, data) {
         if (error) {
-          Log.error('[ db ] error: ' + error);
+          console.error('[ db ] error: ' + error);
           reject(error);
         } else {
-          Log.info('[ db ] deleted: ' + JSON.stringify(data))
+          console.log('[ db ] deleted: ' + JSON.stringify(data))
           resolve(data);
         }
       });

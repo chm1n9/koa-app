@@ -118,7 +118,7 @@ RoomSchema.pre('save', function(next) {
 //     return new Promise(function (resolve, reject) {
 //       self.roomModel.find(...dataArr, function (error, docs) {
 //         if (error) {
-//           Log.error('[ db ] error: ' + error);
+//           console.error('[ db ] error: ' + error);
 //           reject(error);
 //         } else {
 //           resolve(docs);
@@ -131,7 +131,7 @@ RoomSchema.pre('save', function(next) {
 //     return new Promise(function (resolve, reject) {
 //       self.roomModel.findOne(dataArr, function (error, docs) {
 //         if (error) {
-//           Log.error('[ db ] error: ' + error);
+//           console.error('[ db ] error: ' + error);
 //           reject(error);
 //         } else {
 //           resolve(docs);
@@ -145,10 +145,10 @@ RoomSchema.pre('save', function(next) {
 //       const room = new self.roomModel(dataArr);
 //       room.save(function (error, data) {
 //         if (error) {
-//           Log.error('[ db ] room create error: ' + error)
+//           console.error('[ db ] room create error: ' + error)
 //           reject(error);
 //         } else {
-//           Log.info('[ db ] room created: ' + data.roomName)
+//           console.log('[ db ] room created: ' + data.roomName)
 //           resolve(data);
 //         }
 //       });
@@ -159,10 +159,10 @@ RoomSchema.pre('save', function(next) {
 //     return new Promise(function (resolve, reject) {
 //       self.roomModel.remove(dataArr, function (error, data) {
 //         if (error) {
-//           Log.error('[ db ] error: ' + error);
+//           console.error('[ db ] error: ' + error);
 //           reject(error);
 //         } else {
-//           Log.info('[ db ] deleted: ' + JSON.stringify(data))
+//           console.log('[ db ] deleted: ' + JSON.stringify(data))
 //           resolve(data);
 //         }
 //       });
