@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 const { ObjectId } = Schema.Types
 
-const DistrictSchema = new Schema({
+const StationSchema = new Schema({
   createTime: {
     type: Date,
     default: Date.now()
@@ -22,15 +22,15 @@ const DistrictSchema = new Schema({
   },
   parentId: {
     type: ObjectId,
-    ref: 'district'
+    ref: 'station'
   },
   children: [{
     type: ObjectId,
-    ref: 'district'
+    ref: 'station'
   }]
 })
 
-DistrictSchema.pre('save', function (next) {
+StationSchema.pre('save', function (next) {
   if (this.isNew) {
     this.createTime = this.updateTime = Date.now()
   } else {
@@ -39,4 +39,4 @@ DistrictSchema.pre('save', function (next) {
   next()
 })
 
-module.exports = mongoose.model("district", DistrictSchema)
+module.exports = mongoose.model("station", StationSchema)
