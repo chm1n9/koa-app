@@ -1,4 +1,3 @@
-require("babel-register")
 const { open, close } = require('../utils/mongo')
 open()
 const district = require('./model/district')
