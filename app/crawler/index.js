@@ -1,8 +1,8 @@
-const superagent = require('superagent'),
-  cheerio = require('cheerio')
+const cheerio = require('cheerio')
 const { open, close } = require('../utils/mongo');
 open()
 
+import superagentGet from './superagentGet'
 const parseHtml = require('./parseHtml')
 const building = require('../model/building')
 const room = require('../model/room')
@@ -132,17 +132,3 @@ function getRoomConfig(params) {
   })
 }
 
-function superagentGet(url, callback) {
-  return new Promise(function(resolve, reject) {
-    superagent
-      .get(url)
-      .end((err, res) => {
-        if (err) {
-          console.error('superagent get error : ' + err)
-          console.log('ERROR URL: ' + url + '.')
-          return reject({ body: {} })
-        }
-        callback(resolve, res)
-      })
-  })
-}
