@@ -8,4 +8,5 @@ type Query {
     limit: Int,
     offset: Int
   ): Rooms
+  district(id: Int): [District]
 }

@@ -34,105 +34,106 @@ DistrictSchema.pre('save', function(next) {
   next()
 })
 
-class District {
-  constructor() {
-    this.districtModel = mongoose.model("district", DistrictSchema);
-  }
-  find(dataArr = {}) {
-    const self = this;
-    return new Promise(function(resolve, reject) {
-      self.districtModel.find(dataArr)
-        .exec(function(error, docs) {
-          if (error) {
-            console.error('[ db ] error: ' + error);
-            reject(error);
-          } else {
-            resolve(docs);
-          }
-        })
-    })
-  }
-  getId(l1Name, l2Name) {
-    const self = this;
-    return new Promise(function(resolve, reject) {
-      self.districtModel.findOne({
-        name: l1Name,
-        level: 1
-      })
-        .populate('children')
-        // .where('children')
-        // .elemMatch({name: l2Name})
-        .exec(function(error, docs) {
-          if (error) {
-            console.error('[ db ] error: ' + error);
-            reject(error);
-          } else {
-            resolve(docs);
-          }
-        })
-    })
-  }
-  findOne(dataArr = {}) {
-    const self = this;
-    return new Promise(function(resolve, reject) {
-      self.districtModel.findOne(dataArr, function(error, docs) {
-        if (error) {
-          console.error('[ db ] error: ' + error);
-          reject(error);
-        } else {
-          resolve(docs);
-        }
-      })
-    })
-  }
-  create(dataArr) {
-    const self = this;
-    return new Promise(function(resolve, reject) {
-      const district = new self.districtModel(dataArr);
-      district.save(function(error, data, numberAffected) {
-        if (error) {
-          console.error('[ db ] error: ' + error);
-          reject(error);
-        } else {
-          console.log('[ db ] district created: ' + JSON.stringify(data))
-          resolve(data);
-        }
-      });
-    })
-  }
-  update(id, update) {
-    const self = this;
-    return new Promise(function(resolve, reject) {
-      self.districtModel.findByIdAndUpdate(id, {
-        $set: {
-          ...update,
-          updateTime: Date.now()
-        }
-      }, function(error, data) {
-        if (error) {
-          console.error('[ db ] error: ' + error);
-          reject(error);
-        } else {
-          resolve(data);
-        }
-      });
-    })
-  }
-  delete(dataArr) {
-    const self = this;
-    return new Promise(function(resolve, reject) {
-      self.districtModel.remove(dataArr, function(error, data) {
-        if (error) {
-          console.error('[ db ] error: ' + error);
-          reject(error);
-        } else {
-          console.log('[ db ] deleted: ' + JSON.stringify(data))
-          resolve(data);
-        }
-      });
-    })
-  }
-}
+// class District {
+//   constructor() {
+//     this.districtModel = mongoose.model("district", DistrictSchema);
+//   }
+//   find(dataArr = {}) {
+//     const self = this;
+//     return new Promise(function(resolve, reject) {
+//       self.districtModel.find(dataArr)
+//         .exec(function(error, docs) {
+//           if (error) {
+//             console.error('[ db ] error: ' + error);
+//             reject(error);
+//           } else {
+//             resolve(docs);
+//           }
+//         })
+//     })
+//   }
+//   getId(l1Name, l2Name) {
+//     const self = this;
+//     return new Promise(function(resolve, reject) {
+//       self.districtModel.findOne({
+//         name: l1Name,
+//         level: 1
+//       })
+//         .populate('children')
+//         // .where('children')
+//         // .elemMatch({name: l2Name})
+//         .exec(function(error, docs) {
+//           if (error) {
+//             console.error('[ db ] error: ' + error);
+//             reject(error);
+//           } else {
+//             resolve(docs);
+//           }
+//         })
+//     })
+//   }
+//   findOne(dataArr = {}) {
+//     const self = this;
+//     return new Promise(function(resolve, reject) {
+//       self.districtModel.findOne(dataArr, function(error, docs) {
+//         if (error) {
+//           console.error('[ db ] error: ' + error);
+//           reject(error);
+//         } else {
+//           resolve(docs);
+//         }
+//       })
+//     })
+//   }
+//   create(dataArr) {
+//     const self = this;
+//     return new Promise(function(resolve, reject) {
+//       const district = new self.districtModel(dataArr);
+//       district.save(function(error, data, numberAffected) {
+//         if (error) {
+//           console.error('[ db ] error: ' + error);
+//           reject(error);
+//         } else {
+//           console.log('[ db ] district created: ' + JSON.stringify(data))
+//           resolve(data);
+//         }
+//       });
+//     })
+//   }
+//   update(id, update) {
+//     const self = this;
+//     return new Promise(function(resolve, reject) {
+//       self.districtModel.findByIdAndUpdate(id, {
+//         $set: {
+//           ...update,
+//           updateTime: Date.now()
+//         }
+//       }, function(error, data) {
+//         if (error) {
+//           console.error('[ db ] error: ' + error);
+//           reject(error);
+//         } else {
+//           resolve(data);
+//         }
+//       });
+//     })
+//   }
+//   delete(dataArr) {
+//     const self = this;
+//     return new Promise(function(resolve, reject) {
+//       self.districtModel.remove(dataArr, function(error, data) {
+//         if (error) {
+//           console.error('[ db ] error: ' + error);
+//           reject(error);
+//         } else {
+//           console.log('[ db ] deleted: ' + JSON.stringify(data))
+//           resolve(data);
+//         }
+//       });
+//     })
+//   }
+// }
 
-const district = new District()
-module.exports = district
+// const district = new District()
+// module.exports = district
+module.exports = mongoose.model("district", DistrictSchema)

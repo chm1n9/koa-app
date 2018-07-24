@@ -1,4 +1,5 @@
 import Room from '../../model/room.js'
+import District from '../../model/district.js'
 
 const fetchRooms = async (root, args, options) => {
   const {
@@ -24,10 +25,19 @@ const fetchRooms = async (root, args, options) => {
 
 const fetchRoomById = (root, { id }, options) => Room.findOne({ id }).exec()
 
+const fetchDistrict = async (root, { id }, options) => {
+  if (id) {
+    return District.findOne({ id }).exec()
+  } else {
+    return District.find({ level: 1 }).populate('children').exec()
+  }
+}
+
 const resolver = {
   Query: {
     rooms: fetchRooms,
     room: fetchRoomById,
+    district: fetchDistrict,
   }
 }
 export default resolver

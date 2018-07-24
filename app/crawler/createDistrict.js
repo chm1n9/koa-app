@@ -4,8 +4,7 @@ const district = require('../model/district')
 
 const d = require('../data/bk.json')
 
-  ;
-(async function run() {
+;(async function run() {
   let index = 1
   try {
     for (let key in d) {

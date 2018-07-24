@@ -6,7 +6,9 @@ const typeDefs = [
   requireGraphQLFile('./schemas/pageInfo'),
   requireGraphQLFile('./schemas/building'),
   requireGraphQLFile('./schemas/room'),
-  requireGraphQLFile('./schemas/Query')
+  requireGraphQLFile('./schemas/district'),
+  requireGraphQLFile('./schemas/Query'),
+
 ]
 
 export default makeExecutableSchema({ typeDefs, resolvers })
