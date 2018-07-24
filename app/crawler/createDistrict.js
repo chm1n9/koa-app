@@ -1,6 +1,6 @@
 const { open, close } = require('../utils/mongo')
 open()
-const district = require('./model/district')
+const district = require('../model/district')
 
 const d = require('../data/bk.json')
 
