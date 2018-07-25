@@ -7,6 +7,7 @@ const typeDefs = [
   requireGraphQLFile('./schemas/building'),
   requireGraphQLFile('./schemas/room'),
   requireGraphQLFile('./schemas/district'),
+  requireGraphQLFile('./schemas/station'),
   requireGraphQLFile('./schemas/Query'),
 
 ]

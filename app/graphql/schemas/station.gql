@@ -1,0 +1,7 @@
+type Station {
+	children: [District],
+	id: Int,
+	name: String,
+	level: Int,
+	parentId: Int
+}

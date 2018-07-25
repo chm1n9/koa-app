@@ -9,4 +9,8 @@ type Query {
     offset: Int
   ): Rooms
   district(id: Int): [District]
+  options: {
+    district: [District]
+    station: [Station]
+  }
 }

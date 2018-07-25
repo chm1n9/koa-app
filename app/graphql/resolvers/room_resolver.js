@@ -29,15 +29,23 @@ const fetchDistrict = async (root, { id }, options) => {
   if (id) {
     return District.findOne({ id }).exec()
   } else {
-    return District.find({ level: 1 }).populate('children').exec()
+    return District.find({ level: 2 }).populate('children').exec()
   }
 }
-
+const fetchOptions = async (root, args, options) => {
+  const district = await District.find({ level: 2 }).populate('children').exec()
+  const station = await Station.find({ level: 2 }).populate('children').exec()
+  return {
+    district,
+    station
+  }
+}
 const resolver = {
   Query: {
     rooms: fetchRooms,
     room: fetchRoomById,
     district: fetchDistrict,
+    options: fetchOptions
   }
 }
 export default resolver
