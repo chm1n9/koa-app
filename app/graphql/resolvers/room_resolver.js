@@ -1,5 +1,6 @@
 import Room from '../../model/room.js'
 import District from '../../model/district.js'
+import Station from '../../model/station.js'
 
 const fetchRooms = async (root, args, options) => {
   const {

@@ -1,3 +1,9 @@
+type Options {
+  district: [District]
+  station: [Station]
+}
+
+
 type Query {
   room(id: String!): Room
   rooms(
@@ -9,8 +15,5 @@ type Query {
     offset: Int
   ): Rooms
   district(id: Int): [District]
-  options: {
-    district: [District]
-    station: [Station]
-  }
+  options: Options
 }
