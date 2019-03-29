@@ -10,7 +10,7 @@ module.exports = function parseHtml($) {
   // [武昌 积玉桥]
   const _subTitle = $('.room_name span.ellipsis').text().trim()
     .replace(/[\s|\n]+/g, ' '),
-    [, local1, local2] = _subTitle.match(/\[([^\s]*)\s*([^\]]*)\]/)
+    [, local1, local2] = _subTitle.match(/([^\s]*)\s*([^\]]*)/)
 
   const $_mapsearchText = $('#mapsearchText'),
     localtion = {
