@@ -20,7 +20,7 @@ module.exports = getZiru
 
 async function getZiru() {
   console.time('get ziru')
-  for (let i = 1, l = 2; i < l; i++) {
+  for (let i = 1, l = 55; i < l; i++) {
     await getPage(i)
   }
   close()
